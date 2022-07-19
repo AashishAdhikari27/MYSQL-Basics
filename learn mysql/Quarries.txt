@@ -1,0 +1,165 @@
+
+  show database;  // it shows the database on the system  
+  create database db_name // to create the database 
+  use db_name //database bhitra jana ko lagi
+  drop database db_name // to delete database
+
+
+
+   
+  create table table_name (col1 datatype,col2 datatype,col3 datatype,.......); 
+   // to create table 
+  show tables; // to show the tables
+  desc table_name; // table maa bhako kura hernako lagii..
+  drop table table_name; // to delete the table
+ 
+
+  alter table old_tbname rename new_tbname; // to rename the table
+  alter table table_name add col_name data_type;// to add column on the table
+  
+  truncate table table_name; // table ko data matrai delete garna ko lagi
+  
+  
+  insert into table_name (column1,column2,column3,...) values(value1,value2,value3,.....);
+  insert into table_name values(value1,value2,value3,.....); //to insert data/records in a table
+  
+  select * from table_name; // to select all the fields available in the table
+  select distinct (col_name) from table_name ; // used to return only distinct (different) values.
+
+  update table_name set col1=val1,col2=val2,..... where condition;
+  // used to modify existing records 
+  
+  delete from table_name where condition; //to delete the existing record in the table
+  delete from table_name ; // to delete all records
+
+
+ // where  clause is used to specify the condition then the row is selected which
+    satisfies the condition
+ for e.g.---> select * from table_name where condition;
+
+  // * denotes all,we can specify the column which we want to select by just replacing 
+    the * with column names
+  for e.g.---> select col1,col2,... form table_name where condition;
+  
+ // we can use more conditions as --
+  select * from table_name where conditon1 and condition2 and ......;
+ // it selects those columns which satisfies all conditions 
+
+  select * from table_name where conditon1 or condition2 or ......; 
+  // it selects those colunb=ns which satisfies atleast one condition.
+ 
+  select col_name(s) from table_name where col_name between value1 and value2;
+  // diyeko range ma bhayeko records select garxa
+  this can be also be done without using between operator as ...
+  --> select col_name(s) from table_name where col_name >= value1 and col_name <= value2;
+  
+  select col_name(s) from table_name where col_name = value1 or col_name = value2 or ...;
+  // jun jun or operator true hunxa tai tai select hunxa
+  // and this can also be written using in operator as
+  --->  select column_name(s) from table_name where col_name in( value1,value2,...);
+
+  limit operator ---> jati ota record return garni ho tyo janauxa
+  select col_name(s) from table_name limit number;
+  examples;
+  select * from table_name limit 4; // suruko 4 ota select garxa
+  select * from table_name limit 4 offset 2; // suruko 2 ota xodera 4 ota select garxa
+
+  select * from table_name order by col_name; //bhaneko column herera ascending order maa milauxa
+  select * from table_name order by col_name desc;// descending order maa milauxa
+
+  select * from table_name order by col_name desc limit 4; // last ko 4 ota select garxa
+
+  
+  Like operator :-  %  --> one or multiple characters
+                    _  --> single character
+  
+   Examples:- 
+      select * from table_name where col_name like 'a%'; // selects the column starting from a
+      select * from table_name where col_name like '_u%'; // diyeko column maa second letter u bhako select garxa
+      select * from table_name where col_name like '%u_'; // second last character u bhako select garxa
+
+
+  Sum() function :- number bhako column ko total sum nikalna use hunxa
+   --> select sum(col_name) from table_name;
+  
+  Avg() function :- average nikalna
+  --> select avg(col_name) from table_name;
+  
+  Count() function :- kati ota records xan vanera ganna lai
+  --> select count(col_name) from table_name;
+ 
+  Min()/Max() function :- minimum ra maximum patta launa lai
+  --> select min/max (col_name) from table_name;
+
+
+
+ Foreign key --> dui ota table link garna ko lagi euta table ko primary key lai arko table 
+                 maa rakhinxa jaslai foreign key bhaninxa
+
+
+
+ foreign key and join operation :----
+
+
+---> mysql> select * from laptops;
++------+--------+------+
+| lid  | lmodel | sID  |
++------+--------+------+
+|   23 | HP     |    1 |
+|   25 | Acer   |    4 |
+|   35 | Msi    |    6 |
+|  205 | Dell   |    5 |
+|  245 | DELL   |    2 |
+| 2435 | Asus   |    3 |
++------+--------+------+
+
+mysql> select * from std;
++----+------+-----------+
+| id | name | address   |
++----+------+-----------+
+|  1 | a    | dang      |
+|  2 | Hari | kathmandu |
+|  3 | c    | kritipur  |
+|  4 | d    | bhaktapur |
+|  5 | e    | nepalgunj |
+|  6 | f    | dang      |
++----+------+-----------+
+
+mysql> select std.name,std.address,laptops.lmodel  from std,laptops where std.id =laptops.sID;
++------+-----------+--------+
+| name | address   | lmodel |
++------+-----------+--------+
+| a    | dang      | HP     |
+| Hari | kathmandu | DELL   |
+| c    | kritipur  | Asus   |
+| d    | bhaktapur | Acer   |
+| e    | nepalgunj | Dell   |
+| f    | dang      | Msi    |
++------+-----------+--------+
+6 rows in set (0.02 sec)
+
+mysql> select std.name,std.address,laptops.lmodel  from std,laptops where std.id =laptops.sID and std.name='Hari';
++------+-----------+--------+
+| name | address   | lmodel |
++------+-----------+--------+
+| Hari | kathmandu | DELL   |
++------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select std.name,laptops.lmodel from std inner join laptops on std.id = laptops.sID;
++------+--------+
+| name | lmodel |
++------+--------+
+| a    | HP     |
+| Hari | DELL   |
+| c    | Asus   |
+| d    | Acer   |
+| e    | Dell   |
+| f    | Msi    |
++------+--------+
+
+
+
+
+
+	
